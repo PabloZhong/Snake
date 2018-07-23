@@ -23,11 +23,7 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
             stage("Clone source code of Snake game") {
                 git 'http://172.16.6.30:30080/easystack/snake-demo.git' //请按需修改源代码库地址
             }
-            
-            stage('Unit test') {
-                sh 'echo "unit test command"'
-            }
-            
+                      
             stage('Build & push docker image') {
                 sh """
                     //请按需修改账号和密码
@@ -37,9 +33,9 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
                 """
             }
             
-            stage('Deploy app to EKS') {
+            //stage('Deploy app to EKS') {
                 //请按需修改Deployment名称和Snake镜像名称
-                sh """kubectl set image deployment/snake-snake-e8fluud7 snake-snake-e8fluud7=hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}"""
+                //sh """kubectl set image deployment/snake-snake-e8fluud7 snake-snake-e8fluud7=hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}"""
             }
         }
     }
