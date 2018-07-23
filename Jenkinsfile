@@ -21,7 +21,7 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
     stage('devops for snake game') {
         container('jnlp') {
             stage("Clone source code of Snake game") {
-                git 'http://172.16.6.30:30080/easystack/snake-new.git'
+                git 'http://172.16.6.30:30080/easystack/snake-demo.git' //请按需修改源代码库地址
             }
             
             stage('Unit test') {
@@ -30,9 +30,10 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
             
             stage('Build docker image') {
                 sh """
-                    docker login -u admin -p Passw0rd hub.easystack.io
-                    docker build -t hub.easystack.io/captain/snake:${BUILD_NUMBER} .
-                    docker push hub.easystack.io/captain/snake:${BUILD_NUMBER}
+                    //请按需修改账号和密码
+                    docker login -u 3dc70621b8504c98 -p Tcdf4f05247d79dd7 hub.easystack.io  
+                    docker build -t hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER} . 
+                    docker push hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}
                 """
             }
             
