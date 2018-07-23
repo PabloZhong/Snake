@@ -2,7 +2,7 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
   containers: [
         containerTemplate(
             name: 'jnlp',
-            image: 'hub.easystack.io/captain/slave-base:2.62',
+            image: 'hub.easystack.io/3dc70621b8504c98/jenkins-slave:v1', //请按需修改Jenkins Slave镜像名称
             command: '',
             args: '${computer.jnlpmac} ${computer.name}',
             privileged: true,
@@ -20,15 +20,15 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
   node('jnlp') {
     stage('devops for snake game') {
         container('jnlp') {
-            stage("clone snake code") {
-                git 'https://github.com/riverzhang/Snake.git'
+            stage("Clone source code of Snake game") {
+                git 'http://172.16.6.30:30080/easystack/snake-new.git'
             }
             
-            stage('unit test') {
+            stage('Unit test') {
                 sh 'echo "unit test command"'
             }
             
-            stage('build docker image') {
+            stage('Build docker image') {
                 sh """
                     docker login -u admin -p Passw0rd hub.easystack.io
                     docker build -t hub.easystack.io/captain/snake:${BUILD_NUMBER} .
@@ -36,9 +36,9 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
                 """
             }
             
-            stage('deploy to k8s') {
-                
-                sh """kubectl set image deployment/snake snake=hub.easystack.io/captain/snake:${BUILD_NUMBER}"""
+            stage('Deploy app to EKS') {
+                //请按需修改Deployment名称和Snake镜像名称
+                sh """kubectl set image deployment/snake-snake-e8fluud7 snake-snake-e8fluud7=hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}"""
             }
         }
     }
