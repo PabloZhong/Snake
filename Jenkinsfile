@@ -2,7 +2,8 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
   containers: [
         containerTemplate(
             name: 'jnlp',
-            image: 'hub.easystack.io/3dc70621b8504c98/jenkins-slave:v1', //请按需修改Jenkins Slave镜像名称
+            //请按需修改Jenkins Slave镜像名称
+            image: 'hub.easystack.io/3dc70621b8504c98/jenkins-slave:v1',
             command: '',
             args: '${computer.jnlpmac} ${computer.name}',
             privileged: true,
@@ -21,22 +22,23 @@ podTemplate(name: 'jnlp', label: 'jnlp', namesapce: 'default', cloud: 'kubernete
     stage('CICD for Snake Game demo') {
         container('jnlp') {
             stage("Clone source code of Snake game") {
-                git 'http://172.16.6.30:30080/easystack/snake-demo.git' //请按需修改源代码库地址
+                //请按需修改Git源代码库地址
+                git 'http://172.16.6.30:30080/easystack/snake-demo.git'
             }
                       
             stage('Build & push docker image') {
+                //请按需修改镜像仓库的账号和密码
                 sh """
-                    //请按需修改镜像仓库的账号和密码
                     docker login -u 3dc70621b8504c98 -p Tcdf4f05247d79dd7 hub.easystack.io  
                     docker build -t hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER} . 
                     docker push hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}
                 """
             }
             
-            //stage('Deploy app to EKS') {
+            stage('Deploy app to EKS') {
                 //请按需修改Deployment名称和Snake镜像名称
-                //sh """kubectl set image deployment/snake-snake-e8fluud7 snake-snake-e8fluud7=hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}"""
-            //}
+                sh """kubectl set image deployment/snake-demo-1-snake-demo-1-euqh6zvl snake-demo-1-snake-demo-1-euqh6zvl=hub.easystack.io/3dc70621b8504c98/snake:${BUILD_NUMBER}"""
+            }
         }
     }
  }
