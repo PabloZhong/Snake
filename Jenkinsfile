@@ -25,7 +25,7 @@ podTemplate(name: 'jnlp', label: 'jnlp', namespace: 'default', cloud: 'kubernete
                 //请按需修改Git源代码库地址
                 //如果是Private项目，参考示例如下（需使用GitLab Access Token）
                 sh """
-                    git clone http://oauth2:E8azoQ6QSTpmvyzEeJzc@172.16.6.28:30080/easystack/snake-demo.git
+                    git clone http://oauth2:QK6YdGhk3muxTPzAQC1B@172.16.6.28:30080/easystack/snake-demo.git
                 """
                 //如果是Public项目，参考示例如下
                 //git 'http://172.16.6.28:30080/easystack/snake-demo.git'
