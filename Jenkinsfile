@@ -19,9 +19,9 @@ podTemplate(name: 'jnlp', label: 'jnlp', namespace: 'default', cloud: 'kubernete
   ) {
 
   node('jnlp') {
-    stage('CICD for Snake Game demo') {
+    stage('CICD for Snake Game Demo') {
         container('jnlp') {
-            stage("Clone source code of Snake game") {
+            stage("Clone source code of Snake Game") {
                 //请按需修改Git源代码库地址
                 //如果是Private项目，参考示例如下（需使用GitLab Access Token）
                 sh """
