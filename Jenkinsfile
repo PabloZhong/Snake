@@ -24,18 +24,18 @@ podTemplate(name: 'jnlp', label: 'jnlp', cloud: 'kubernetes',
             stage("Clone source code of Snake Game") {
                 //请按需修改Git源代码库地址
                 //如果是Private项目，参考示例如下（需使用GitLab Access Token）
-                sh """
-                    git clone http://oauth2:QK6YdGhk3muxTPzAQC1B@172.16.6.28:30080/easystack/snake-demo.git
-                """
+                //sh """
+                    //git clone http://oauth2:QK6YdGhk3muxTPzAQC1B@172.16.6.28:30080/easystack/snake-demo.git
+                //"""
                 //如果是Public项目，参考示例如下
-                //git 'http://172.16.6.28:30080/easystack/snake-demo.git'
+                git 'http://172.16.6.28:30080/easystack/snake-demo.git'
             }
                       
             stage('Build & push docker image') {
                 //请按需修改镜像仓库的账号和密码，并注意docker build命令中Dockerfile所在路径
                 sh """
                     docker login -u 3dc70621b8504c98 -p Tcdf4f05247d79dd7 hub.easystack.io  
-                    docker build -t hub.easystack.io/3dc70621b8504c98/snake:v${BUILD_NUMBER} ./snake-demo
+                    docker build -t hub.easystack.io/3dc70621b8504c98/snake:v${BUILD_NUMBER} ./
                     docker push hub.easystack.io/3dc70621b8504c98/snake:v${BUILD_NUMBER}
                 """
             }
