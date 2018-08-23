@@ -3,7 +3,7 @@ podTemplate(name: 'jnlp', label: 'jnlp', cloud: 'kubernetes',
         containerTemplate(
             name: 'jnlp',
             //请按需修改Jenkins Slave镜像名称
-            image: 'docker.io/jenkins/jnlp-slave:alpine',
+            image: 'hub.easystack.io/3dc70621b8504c98/jenkins-slave:v1',
             command: '',
             args: '${computer.jnlpmac} ${computer.name}',
             privileged: true,
